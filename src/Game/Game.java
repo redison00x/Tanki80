@@ -20,14 +20,7 @@ public class Game implements Runnable {
     private Graphics2D        graphics;                  //???????
     private Input             input;
     private TextureAtlas      atlas;
-    private SpriteSheet       sheet;
-    private Sprite            sprite;
-
-    float x =350;
-    float y =250;
-    float delta = 0;
-    float radius = 50;
-    float speed = 5;
+    private Player            player;
 
     public Game(){
         running = false;
@@ -36,11 +29,7 @@ public class Game implements Runnable {
         input = new Input();
         Display.addInputListener(input);
         atlas = new TextureAtlas(ATLAS_FILE_NAME);
-        sheet = new SpriteSheet(atlas.cut(8*16,5*16,
-                16*2, 16), 2, 16);
-        sprite = new Sprite(sheet,1);
-
-
+        player = new Player(300,300,atlas,2, 3);
     }
 
     public synchronized void start(){
@@ -63,23 +52,16 @@ public class Game implements Runnable {
     }
 
     private void update(){
-        if(input.getKey(KeyEvent.VK_UP))
-            y-= speed;
-        if(input.getKey(KeyEvent.VK_DOWN))
-            y+= speed;
-        if(input.getKey(KeyEvent.VK_LEFT))
-            x-= speed;
-        if(input.getKey(KeyEvent.VK_RIGHT))
-            x+= speed;
+        player.update(input);
     }
 
     private void render(){
         Display.clear();
-        sprite.render(graphics,x,y);
+        player.render(graphics);
         Display.swapBuffers();
-
-
     }
+
+
     @Override
     public void run() {
 
