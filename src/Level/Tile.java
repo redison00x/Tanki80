@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 
 public class Tile  {
     private BufferedImage image;
-    private TileType type;
+    protected TileType type;
 
     protected Tile(BufferedImage image, int scale, TileType type) {
         this.type = type;
